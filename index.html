@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ボイトレ画像プロンプト生成</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+/* ==========================================================================
+   Base Styles & Variables
+   ========================================================================== */
+:root {
+    --bg-primary: #080b16;
+    --bg-secondary: rgba(15, 22, 42, 0.6);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-highlight: rgba(255, 255, 255, 0.15);
+    
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    
+    --accent-primary: #6366f1; /* Indigo */
+    --accent-secondary: #a855f7; /* Purple */
+    --accent-glow: rgba(99, 102, 241, 0.5);
+    
+    --success: #10b981; /* Emerald */
+    --danger: #ef4444; /* Red */
+    
+    --card-bg: rgba(17, 24, 39, 0.45);
+    --card-backdrop: blur(20px);
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    
+    --font-family: 'Plus Jakarta Sans', 'Noto Sans JP', sans-serif;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   Background Decorative Elements (Premium Glow)
+   ========================================================================== */
+.background-decor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.glow-sphere {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+}
+
+.sphere-1 {
+    top: -10%;
+    right: 10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--accent-secondary) 0%, transparent 70%);
+}
+
+.sphere-2 {
+    bottom: 10%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+.app-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    gap: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.logo-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    filter: drop-shadow(0 0 8px var(--accent-glow));
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--text-primary) 30%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    font-weight: 400;
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+}
+
+.control-panel {
+    display: none !important;
+}
+
+/* ==========================================================================
+   Glassmorphism Cards
+   ========================================================================== */
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: var(--card-backdrop);
+    -webkit-backdrop-filter: var(--card-backdrop);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-smooth);
+}
+
+.glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.card-header-actions {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-family: var(--font-family);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition-smooth);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+}
+
+.btn-glow {
+    position: relative;
+    box-shadow: 0 4px 20px 0 var(--accent-glow);
+}
+
+.btn-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px 0 rgba(99, 102, 241, 0.7);
+}
+
+.btn-glow:active {
+    transform: translateY(0);
+}
+
+/* 中央配置の大きな生成ボタン */
+.btn-large-run {
+    padding: 1.25rem 3.5rem;
+    font-size: 1.3rem;
+    border-radius: 16px;
+    letter-spacing: 0.05em;
+}
+
+/* 大きく変更したコピーボタン */
+.btn-large-copy {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    border: 1px solid var(--border-highlight);
+    padding: 1.1rem;
+    font-size: 1.1rem;
+    width: 100%;
+    margin-bottom: 0.75rem; /* 下の出力枠との隙間 */
+    border-radius: 12px;
+}
+
+.btn-large-copy:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.btn-large-copy:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ==========================================================================
+   Result Output Panel
+   ========================================================================== */
+.result-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.result-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
+}
+
+.prompt-box-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.prompt-output {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    min-height: 100px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    font-family: inherit;
+    transition: var(--transition-smooth);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Banner for Special Rules */
+.info-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: 10px;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.85rem;
+    color: #a7f3d0;
+}
+
+.info-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    color: var(--success);
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Toast Notifications
+   ========================================================================== */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(16, 185, 129, 0.95);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 0.8rem 1.8rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    z-index: 1000;
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+    font-weight: 600;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.toast-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+/* Highlight Animation */
+.prompt-output.highlight {
+    animation: highlightFade 0.6s ease-out;
+}
+
+@keyframes highlightFade {
+    0% {
+        box-shadow: 0 0 0 2px var(--accent-primary);
+        background: rgba(99, 102, 241, 0.15);
+    }
+    100% {
+        box-shadow: 0 0 0 0px transparent;
+        background: rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-top: auto;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+    
+.param-val-en {
+    display: none !important;
+}
+.history-card {
+    display: none !important;
+}
+</style>
+</head>
+<body>
+    <div class="background-decor">
+        <div class="glow-sphere sphere-1"></div>
+        <div class="glow-sphere sphere-2"></div>
+    </div>
+
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <i data-lucide="mic" class="logo-icon"></i>
+                <h1>ボイトレ画像プロンプト生成</h1>
+            </div>
+            <p class="subtitle">ブログ記事の画像用プロンプトをランダムに自動合成します。</p>
+        </header>
+
+        <main class="grid-layout">
+            <section class="result-panel">
+                <div class="glass-card result-card">
+                    
+                    <div class="card-header-actions">
+                        <button id="run-btn" class="btn btn-primary btn-glow btn-large-run">
+                            <i data-lucide="play"></i>
+                            <span>プロンプト生成</span>
+                        </button>
+                    </div>
+
+                    <div class="prompt-box-wrapper" style="margin-top: 0.5rem;">
+                        <button class="btn btn-large-copy" id="copy-ja-btn" disabled>
+                            <i data-lucide="copy"></i> プロンプトコピー
+                        </button>
+                        <div class="prompt-output" id="output-ja">「プロンプト生成」ボタンをクリックすると、ここに組み合わせ構成が出力されます。</div>
+                    </div>
+
+                    <div class="info-banner" id="special-rules-banner" style="display: none;">
+                        <i data-lucide="info" class="info-icon"></i>
+                        <span id="special-rules-text"></span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 AI Prompt Composer. NAYUTAS Vocal Lessons Custom.</p>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast">
+        <i data-lucide="check-circle" class="toast-icon"></i>
+        <span id="toast-message">コピーしました！</span>
+    </div>
+
+    <script>
+// ==========================================================================
+// Data Definition for Parameters
+// ==========================================================================
+const parameterData = {
+    A: {
+        name: "人物の性別と年代",
+        items: [
+            { ja: "10代女性", en: "10s Japanese female, teenager girl" },
+            { ja: "50代男性", en: "50s Japanese male, middle-aged man" },
+            { ja: "20代女性", en: "20s Japanese female, young woman" },
+            { ja: "40代男性", en: "40s Japanese male, middle-aged man" },
+            { ja: "30代女性", en: "30s Japanese female, young woman" },
+            { ja: "30代男性", en: "30s Japanese male, young man" },
+            { ja: "40代女性", en: "40s Japanese female, middle-aged woman" },
+            { ja: "20代男性", en: "20s Japanese male, young man" },
+            { ja: "50代女性", en: "50s Japanese female, middle-aged woman" },
+            { ja: "10代男性", en: "10s Japanese male, teenager boy" }
+        ]
+    },
+    B: {
+        name: "場所・内装と光の雰囲気（機材描写含む）",
+        items: [
+            // --- 明るい部屋（赤・青・緑・黄・白） ---
+            { ja: "温かみのある明るい部屋（夕暮れ・赤）：情熱的なレッド＆コーラルスタジオ（赤みを帯びたレンガの壁・大きな窓から差す夕方の光・ビンテージマイクと大型モニタースピーカー設置）", en: "in a warm and inviting vocal studio with reddish brick walls, soft sunset light streaming through large windows, equipped with a vintage microphone and large monitor speakers" },
+            { ja: "爽やかな明るい部屋（昼の光・青）：スカイブルー＆ホワイトの北欧風スタジオ（白い壁に青い吸音パネル・自然光・目の前には最新のコンデンサーマイクとオーディオインターフェース）", en: "in a bright and airy Scandinavian vocal studio with white walls, sky blue soundproof panels, natural daylight, featuring a modern condenser microphone and audio interface" },
+            { ja: "癒やしの明るい部屋（木漏れ日・緑）：アースグリーン＆オーガニックスタジオ（防音壁・観葉植物・柔らかな光・卓上には小型ミキサーとマイクスタンド）", en: "in a soothing organic vocal room with olive green walls, green houseplants, soft dappled sunlight, equipped with a compact mixer and mic stand on the desk" },
+            { ja: "ポップで明るい部屋（日差し・黄）：マスタードイエロー＆サニーオレンジスタジオ（鮮やかな黄色の吸音材・元気な日差し・マイクとヘッドホンが整然と並ぶデスク）", en: "in a cheerful pop-style vocal studio with mustard yellow acoustic materials, bright warm sunlight, featuring a neat desk with a microphone and headphones" },
+            { ja: "真っ白い部屋（自然光・白）：清潔感あふれるオールホワイトのシンプルスタジオ（白い壁、白い床、大きな窓からたっぷりと差し込む自然光、シンプルなマイクスタンド）", en: "in a clean and minimalist all-white vocal studio with white walls, white floors, bright natural daylight streaming through large windows, and a simple microphone stand" },
+            
+            // --- 暗い部屋（赤・青・緑・黄） ---
+            { ja: "シックでムーディーな暗い部屋（間接照明・赤）：ダークレッドの高級スタジオ（えんじ色の壁・暖色系の間接照明・本格的な大型コンデンサーマイクとポップガード）", en: "in a luxurious classic vocal studio with deep red soundproof walls, warm indirect ambient lighting, equipped with a professional large-diaphragm condenser microphone and pop filter" },
+            { ja: "ディープな暗い部屋（夜・青）：ディープブルーの大人風スタジオ（深い紺色の壁・落ち着いた夜の室内光・レコーディングブース内のマイクとスタジオモニター）", en: "in a mature deep blue theme music studio with deep navy walls, calm night indoor glow, featuring a studio microphone and monitor inside a recording booth" },
+            { ja: "ネオンが映える都会的な暗い部屋（ネオン・緑）：エメラルドグリーン＆ネオンスタジオ（緑の壁・紫のネオンサイン・エッジの効いた光・黒く輝くマイクアームとヘッドホン）", en: "in an urban edgy vocal studio with pale green walls, vibrant neon sign lights, equipped with a sleek black microphone arm and professional headphones" },
+            { ja: "ドラマチックな暗い部屋（スポットライト・黄）：ドラマチックなイエロー＆シャドウスタジオ（ダークな壁・黄色のバックライト・スポットライト・センターに立つスタンドマイク）", en: "in a dramatic dark vocal booth with dark walls, highlighted by strong yellow rim lighting, featuring a prominent standing microphone in the center" }
+        ]
+    },
+    C: {
+        name: "人物の特徴",
+        items: [
+            { ja: "高身長・モデル体型（背が高くスラリとした高身長、手足が長く全体のバランスが良いスマートな体型）", en: "tall and slender model-like physique, long limbs, well-balanced smart body shape" },
+            { ja: "がっちり・アスリート体型（肩幅が広く骨組みがしっかりとした、程よく筋肉質で健康的ながっちり体型）", en: "broad-shouldered athletic build, solid bone structure, moderately muscular and healthy fit physique" },
+            { ja: "小柄・華奢（やせ型）（全体的に線が細く華奢な印象を与える、スリムで引き締まったやせ型の体型）", en: "petite and slender slim build, delicate frame, toned thin body shape" },
+            { ja: "丸顔・ふっくら体型（親しみやすさを感じるふっくらとした丸顔の輪郭、優しく柔らかい雰囲気 of body shape）", en: "friendly round face chubby outline, soft gentle and plump body shape" },
+            { ja: "シャープ・逆三角（キツネ顔）（顎のラインが綺麗に尖ったシャープな逆三角形の輪郭、すっきりした知的な顔立ち）", en: "sharp inverted triangle face outline, well-defined clean jawline, intelligent fox-like facial features" },
+            { ja: "太眉・はっきりした顔立ち（ソース顔）（キリッと太く存在感のある眉毛、目鼻立ちがはっきりとしたエネルギッシュな顔立ち）", en: "strong thick prominent eyebrows, well-defined energetic chiseled facial features" },
+            { ja: "薄眉・すっきり涼しげ（塩顔）（優しく整えられた薄めの眉毛、一重や奥二重のすっきりと涼しげな目元の顔立ち）", en: "neatly groomed thin eyebrows, clean single or hooded eyelids, refreshing cool facial expressions" },
+            { ja: "ふっくら唇・魅惑的（たらこ唇）（ぽってりと厚みがあり魅力的なふっくらとした唇, 口元に視線が集まる個性的な特徴）", en: "attractive full plump lips, charming distinctive thick lip line" },
+            { ja: "愛嬌のある鼻（鼻ペチャ・丸鼻）（ツンと上を向いた小ぶりで愛嬌のある鼻、親しみやすく可愛らしい印象の顔立ち）", en: "cute small button nose slightly upturned, adorable friendly facial appearance" },
+            { ja: "スッとした高い鼻（クールビューティー）（鼻筋が真っ直ぐに通った高くて綺麗な鼻、横顔のラインが美しく映える端正な顔立ち）", en: "straight high bridge defined nose, beautiful clean profile line, elegant sharp features" }
+        ]
+    },
+    E: {
+        name: "姿勢とポーズ（マイク・ヘッドホン操作や構図）",
+        items: [
+            { ja: "スタジオのオーディオミキサーデスクに片肘を置き、モニターを覗き込む上半身の構図（頭には大型スタジオヘッドホンを装着）", en: "leaning an elbow on the studio audio mixer desk, looking closely towards the monitor, wearing large studio headphones on the head" },
+            { ja: "背筋を真っ直ぐに伸ばし、片手を胸にそっと添えてスタンドマイクに向かう立ち姿（首にはヘッドホン掛け）", en: "standing straight with excellent posture, one hand placed gently on the chest facing a studio stand microphone, with headphones around the neck" },
+            { ja: "ヘッドホンを首にかけ、大きめのスタジオチェアに少し丸まるように腰掛けリラックスして休む姿勢", en: "sitting relaxed on a large studio chair in a cozy, slightly curled posture with headphones around the neck to rest the voice" },
+            { ja: "魂を込めて歌い上げるように片手を高く天に突き上げ、マイクをしっかりと握りしめて顎を少し上げた立ち姿", en: "standing tall with chin slightly up and one arm thrust dynamically high toward the ceiling, tightly gripping the microphone" },
+            { ja: "声をスタジオ全体に響かせるように両腕を左右にダイナミックに広げたフォーム（マイクスタンドから少し体を離してプロジェクション）", en: "standing with both arms spread wide to the sides in a dynamic open vocal projection posture, keeping a slight distance from the microphone" },
+            { ja: "片手にワイヤレスマイクを持ち、リズムに乗ってカメラ側へ力強く一歩を踏み出す躍動感のある全身ショット", en: "captured in a full-body shot stepping confidently forward toward the camera with rhythmic energy, holding a wireless microphone in one hand" },
+            { ja: "コード付きヘッドホンを着用し、マイクスタンドの前から上半身をクルッとこちらに振り向かせるドラマチックな動き", en: "captured in a dynamic half-turn motion wearing corded headphones, turning away from the microphone stand to look back" },
+            { ja: "サビの最高潮を表現するように前のめりになり、グリルを手で覆うようにマイクを両手でギュッと掴む姿勢", en: "leaning forward energetically while tightly gripping the microphone with both hands, hands covering the microphone grille to show intense passion" }
+        ]
+    },
+    Coord: {
+        name: "服の色（自動）",
+        items: [
+            { ja: "コーディネートA〜Lによる", en: "" }
+        ]
+    },
+    H: {
+        name: "髪型",
+        items: [
+            { ja: "ソフトモヒカン：爽やかな黒髪ソフトモヒカン（サイドをすっきりと刈り上げ、トップを少し立ち上げた清潔感のあるベリーショート）", en: "soft mohawk hairstyle, neatly trimmed sides and slightly standing top, clean and refreshing very short style" },
+            { ja: "クロップスタイル：エッジの効いたダークトーンのクロップスタイル（サイドの刈り上げと、前髪を水平に短く切り揃えたストリート感あふれるスタイル）", en: "dark tone crop style haircut, faded sides and blunt straight cropped bangs, urban street style" },
+            { ja: "ショートボブ：透明感のあるアッシュベージュのショートボブ（顎ラインの丸みのあるシルエットで、小顔効果と女性らしさを引き立てるスタイル）", en: "ash beige short bob hairstyle, rounded silhouette at jawline, small face effect and feminine style" },
+            { ja: "ウルフカット：躍動感のあるブラックアッシュのウルフカット（トップは丸みを残しつつ、襟足を長めに残して外ハネさせたトレンド感のあるスタイル）", en: "dynamic black ash wolf cut, rounded top with longer flipped-out ends at the nape, trendy layered style" },
+            { ja: "前髪ぱっつん：モードな雰囲気 of ダークブラウンストレート（眉上で綺麗に切り揃えられた前髪が印象的な、目力を強調するストレートヘア）", en: "dark brown straight hair with blunt straight bangs cut neatly above the eyebrows, impressive and eye-catching mode style" },
+            { ja: "七三分け：ビジネスにも対応するスマートな七三分け（サイドをタイトに抑え、トップを立ち上げて流した清潔感と誠実さのあるスタイル）", en: "smart 7:3 side part hairstyle, tight sides and voluminous swept-back top, clean and sincere business-ready look" },
+            { ja: "ツイスト：無造作な質感のツイストパーマ（髪をねじりながらかけることで、チリチリとした立体感とシャープな動きを出したストリートスタイル）", en: "twist perm hairstyle, random and sharp textured movement by twisting hair, cool street style" },
+            { ja: "ドレッド：存在感抜群 of ドレッドロックス（しっかりと束ねられた重厚感のあるシルエットで、圧倒的な個性とストリートカルチャーを表現するスタイル）", en: "dreadlocks hairstyle, thick and tightly locked hair, overwhelming presence and street culture style" },
+            { ja: "アフロ：丸いシルエットが特徴のアフロヘア（全体にしっかりとしたボリュームを持たせた、豊かな表現力とインパクトのある個性派スタイル）", en: "afro hairstyle, large and perfectly rounded volume, high impact and expressive unique style" },
+            { ja: "ポニーテール：すっきりとしたハイポニーテール（高めの位置で結ぶことでフェイスラインを出し、アクティブで爽やかな印象を与えるヘアアレンジ）", en: "high ponytail hairstyle, tied up high to reveal a clear neckline and face, active and refreshing arrangement" }
+        ]
+    },
+    I: {
+        name: "表情",
+        items: [
+            { ja: "自然な笑顔（口元を優しく結び、目元を和ませた親しみやすい微笑み）", en: "with a natural gentle smile, friendly and warm eyes" },
+            { ja: "真剣・情熱的（眉間に少し力を入れ、歌や音楽に魂を込めて没頭している強い眼差し）", en: "with a serious and passionate expression, slightly furrowed brow, intense gaze devoted entirely to singing" },
+            { ja: "弾ける爆笑（目を細めて口を大きく開け、心の底から楽しそうに笑っている生き生きとした表情）", en: "with a bursting big laugh, squinted eyes, open mouth, looking lively and genuinely happy" },
+            { ja: "少し緊張したハニカミ（カメラを意識して少し頬を染め、はにかむように口元をすぼめた初々しい表情）", en: "with a slightly nervous shy smile, blushing cheeks, looking cute and self-conscious" },
+            { ja: "集中・思索（フッと唇を真横に結び、次のフレーズを頭の中でなぞるように一点を見つめるストイックな表情）", en: "with a focused and contemplative look, lips pressed straight, eyes fixed on one point as if visualizing the next lyric" },
+            { ja: "感動・エモーショナル（潤んだ瞳で胸がいっぱいになったような、優しくも切ないニュアンスのある表情）", en: "with a deeply moved emotional expression, watery eyes, soft and poignant expression" },
+            { ja: "振り返る一瞬の視線（名前を呼ばれてハッとしたように、こちらに意識が向いた瞬間のカメラ目線）", en: "with a sudden looking-back gaze, making direct eye contact with the camera lens" },
+            { ja: "横を見るクールな目線（視線を真横の機材や楽譜に落とし、フェイスラインの美しさが際立つ横顔）", en: "with a cool sideways gaze, looking towards sheet music or gear, showcasing a clean jawline profile" },
+            { ja: "下を向くアンニュイな視線（伏し目がちにして、どこか物憂げでノスタルジックな雰囲気を纏った大人の表情）", en: "with an ennui downcast look, eyes looking downward, creating a melancholic and nostalgic atmosphere" },
+            { ja: "遠くを見つめる未来志向の瞳（スタジオの窓の外や遠くの空間を見つめ、これからの成長や夢を馳せるような輝きのある目線）", en: "with a forward-looking gaze, looking into the distance, dreaming about future artistic growth" }
+        ]
+    },
+    J: {
+        name: "撮影アングル",
+        items: [
+            { ja: "目線の高さ（アイレベル、被写体と正面から向き合う王道で親しみやすいアングル）", en: "eye-level shot, camera facing the subject directly, friendly and engaging view" },
+            { ja: "少し上から（ハイアングル、上目遣いの表情を強調し、スタジオの床の質感まで見せる構図）", en: "slightly high-angle shot, highlighting upturned eyes and showcasing studio floor context" },
+            { ja: "少し下から（ローアングル、被写体の存在感やスタイルを引き立て、ダイナミックで堂々とした印象を与える構図）", en: "slightly low-angle shot, highlighting subject's singing presence and posture, dynamic view" },
+            { ja: "真横から（プロフィール、綺麗な横顔のラインや、マイクとの距離感をストイックに切り取る構図）", en: "side profile shot, capturing clean facial lines and stoic distance from the studio microphone" },
+            { ja: "斜め前（スリークォーター、顔の立体感と体の奥行きが最も美しく表現される定番のアングル）", en: "three-quarter angle shot, showcasing facial depth and body perspective beautifully" },
+            { ja: "至近距離のクローズアップ（表情の微細なニュアンスや目元の輝き、ヘッドホンを持つ手元などにぐっと迫る構図）", en: "close-up shot, focusing closely on subtle facial nuances, sparkling eyes, or lips singing" },
+            { ja: "引き of ミディアムショット（腰から上を捉え、身振り手振りやコーディネート全体の雰囲気をバランスよく見せるアングル）", en: "medium shot, showing the subject from the waist up, capturing singing gestures and outfit details" },
+            { ja: "劇的な俯瞰（真上から見下ろすようなアングル、スタジオの機材配置やノートに書かれた文字までデザイン的に見せる構図）", en: "dramatic bird's-eye view shot, looking straight down, showcasing studio layout and notebook text" },
+            { ja: "劇的な煽り（床に近い極端に低い位置から見上げるアングル、ステージ上の主役のような圧倒的なカリスマ性を演出）", en: "extreme low-angle shot from near the floor, looking up, evoking superstar charisma and singing presence" },
+            { ja: "背後からのプロショル（背後から被写体の肩越しにスタジオの奥を見据える構図、これから本番に挑むようなストーリー性を感じさせるアングル）", en: "over-the-shoulder shot from behind, looking past subject's back towards the studio depth, cinematic vibe" }
+        ]
+    },
+    K: {
+        name: "写真の雰囲気や質感",
+        items: [
+            { ja: "50mm標準ポートレート（背景を適度にぼかし人物を引き立てる）", en: "shot on 50mm standard portrait lens, moderately blurred background highlighting the person" },
+            { ja: "背景ボケ（奥の背景をなめらかにぼかす、※ただし複数人構図の場合は奥の人物がボケすぎないように注意）", en: "with soft background bokeh, smooth out-of-focus background, ensuring clear facial structure" },
+            { ja: "シネマティック（映画のワンシーンのようなドラマチックな色味とライティング）", en: "cinematic photography, dramatic color grading and cinematic studio lighting, movie scene atmosphere" },
+            { ja: "ドキュメンタリー風（リアルな日常の練習風景を切り取ったような質感）", en: "documentary photography style, capturing candid singing practice scene, realistic everyday look" },
+            { ja: "スマホスナップ風（親しみやすさのある自然体な写真の質感）", en: "casual smartphone snapshot style, natural and candid music lesson photography style" },
+            { ja: "広角（スタジオ全体の広がりが伝わる奥行きのある質感）", en: "wide-angle lens shot, showcasing studio depth and spacious singing room atmosphere" }
+        ]
+    },
+    L: {
+        name: "人数",
+        items: [
+            { ja: "1人（生徒のみ）", en: "1 person, solo student" },
+            { ja: "複数（講師と生徒の2人構図）", en: "multiple people, student and instructor" }
+        ]
+    }
+};
+
+// ==========================================================================
+// Application State & DOM Elements
+// ==========================================================================
+const runBtn = document.getElementById('run-btn');
+const outputJa = document.getElementById('output-ja');
+const copyJaBtn = document.getElementById('copy-ja-btn');
+const specialRulesBanner = document.getElementById('special-rules-banner');
+const specialRulesText = document.getElementById('special-rules-text');
+const toastElement = document.getElementById('toast');
+const toastMessage = document.getElementById('toast-message');
+
+// ==========================================================================
+// Logic Functions
+// ==========================================================================
+
+function generateComposition() {
+    const choices = {};
+    Object.keys(parameterData).forEach(key => {
+        const items = parameterData[key].items;
+        const selectedIndex = Math.floor(Math.random() * items.length);
+        choices[key] = {
+            ja: items[selectedIndex].ja,
+            en: items[selectedIndex].en,
+            index: selectedIndex + 1
+        };
+    });
+    return choices;
+}
+
+function buildPrompts(choices) {
+    const isMultiple = choices.L.ja.includes("複数");
+    let promptJa = "";
+
+    const elementsJaSingle = [
+        `人物: ${choices.A.ja} (${choices.C.ja}, ${choices.H.ja})`,
+        `表情: ${choices.I.ja}`,
+        `姿勢・ポーズ: ${choices.E.ja}`,
+        `場所と雰囲気(機材含む): ${choices.B.ja}`,
+        `アングル: ${choices.J.ja}`,
+        `質感: ${choices.K.ja}`,
+        `人数: ${choices.L.ja}`
+    ];
+
+    const fixedJaPrefix = "このブログ記事の内容をサムネイル化（※厳密に守る）、日本人（※厳密に守る）、写真生成（※厳密に守る）、文字は無し（※厳密に守る）、人物を中央配置（※厳密に守る）、カメラ目線NG（※厳密に守る）、背景にnayutasや文字と認識できるものNG（※厳密に守る）、頭の上と左右に十分な余白をとる（※厳密に守る）、スクエア(1:1)（※厳密に守る）";
+
+    if (!isMultiple) {
+        promptJa = `【ランダム要素構成】\n- ${elementsJaSingle.join('\n- ')}\n\n【固定プロンプト】\n・${fixedJaPrefix.split('、').join('\n・')}`;
+    } else {
+        const isStudentFemale = choices.A.ja.includes("女性");
+        const isStudentMale = choices.A.ja.includes("男性");
+
+        let instructorGender = "female";
+        if (isStudentFemale) {
+            instructorGender = "male";
+        } else if (isStudentMale) {
+            instructorGender = "female";
+        } else {
+            instructorGender = Math.random() > 0.5 ? "female" : "male";
+        }
+
+        const instructorAges = [
+            { ja: "20代", en: "20s" },
+            { ja: "30代", en: "30s" },
+            { ja: "40代", en: "40s" }
+        ];
+        const chosenAge = instructorAges[Math.floor(Math.random() * instructorAges.length)];
+
+        const instructorClothes = [
+            { ja: "シンプルな黒のTシャツ", en: "simple black t-shirt" },
+            { ja: "シンプルな白のTシャツ", en: "simple white t-shirt" },
+            { ja: "シンプルな黒のシャツ", en: "simple black button-up shirt" },
+            { ja: "シンプルな白のシャツ", en: "simple white button-up shirt" }
+        ];
+        const chosenClothes = instructorClothes[Math.floor(Math.random() * instructorClothes.length)];
+
+        const instructorPoses = [
+            { ja: "生徒の少し後ろから笑顔で優しく見守る", en: "standing slightly behind the student, gently watching over the student with a warm smile" },
+            { ja: "生徒の少し後ろからジェスチャーを交えてアドバイスを送る", en: "standing slightly behind the student, giving vocal advice with friendly hand gestures" }
+        ];
+        const chosenPose = instructorPoses[Math.floor(Math.random() * instructorPoses.length)];
+
+        const genderJa = instructorGender === "female" ? "女性" : "男性";
+
+        const instructorJaDesc = `${chosenAge.ja}${genderJa}（髪型: 清潔感のあるナチュラルなスタイル、服装: ${chosenClothes.ja}、ポーズ: ${chosenPose.ja}）`;
+
+        const elementsJaMultiple = [
+            `手前の生徒(主役): ${choices.A.ja} (${choices.C.ja}, ${choices.H.ja})`,
+            `生徒の表情: ${choices.I.ja}`,
+            `生徒の姿勢・ポーズ: ${choices.E.ja}`,
+            `奥の講師(自動設定): ${instructorJaDesc}`,
+            `場所と雰囲気(機材含む): ${choices.B.ja}`,
+            `アングル: ${choices.J.ja}`,
+            `質感: ${choices.K.ja}`,
+            `二人の関係性: ボーカルレッスン中`,
+            `ピント・顔描写: 講師の顔の描写が破綻したり極端にボケたりしないよう最適化 (${choices.K.ja.includes("背景ボケ") ? "奥はややソフトだが表情判別可能" : "両者にピント"})`
+        ];
+
+        promptJa = `【ランダム要素構成】\n- ${elementsJaMultiple.join('\n- ')}\n\n【固定プロンプト】\n・${fixedJaPrefix.split('、').join('\n・')}\n・レッスン風景2人構図`;
+    }
+
+    return {
+        ja: promptJa,
+        isMultiple: isMultiple
+    };
+}
+
+function showToast(message) {
+    toastMessage.textContent = message;
+    toastElement.classList.add('show');
+    setTimeout(() => {
+        toastElement.classList.remove('show');
+    }, 2500);
+}
+
+async function copyToClipboard(text, successMessage) {
+    try {
+        await navigator.clipboard.writeText(text);
+        showToast(successMessage);
+    } catch (err) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        showToast(successMessage);
+        document.body.removeChild(textArea);
+    }
+}
+
+function handleExecution() {
+    const choices = generateComposition();
+    const prompts = buildPrompts(choices);
+    
+    outputJa.textContent = prompts.ja;
+    outputJa.classList.add('highlight');
+    setTimeout(() => {
+        outputJa.classList.remove('highlight');
+    }, 600);
+    
+    if (prompts.isMultiple) {
+        specialRulesBanner.style.display = 'flex';
+        specialRulesText.textContent = "「複数」ルール適用：奥の講師はシンプル（白黒Tシャツ、笑顔で見守る、顔ボケなし）が追加されています。";
+    } else {
+        specialRulesBanner.style.display = 'none';
+    }
+    
+    copyJaBtn.removeAttribute('disabled');
+    
+    showToast('プロンプトを生成しました！');
+}
+
+runBtn.addEventListener('click', handleExecution);
+
+copyJaBtn.addEventListener('click', () => {
+    copyToClipboard(outputJa.textContent, 'プロンプトをコピーしました！');
+});
+
+lucide.createIcons();
+    </script>
+</body>
+</html>

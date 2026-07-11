@@ -429,7 +429,12 @@ const parameterData = {
     A: {
         name: "人物の性別と年代",
         items: [
-            { ja: "10代女性", en: "10s Japanese female, teenager girl" },
+            { ja: "小学生（男子）", en: "Japanese elementary school boy, child" },
+            { ja: "小学生（女子）", en: "Japanese elementary school girl, child" },
+            { ja: "中学生（男子）", en: "Japanese junior high school boy, teenager" },
+            { ja: "中学生（女子）", en: "Japanese junior high school girl, teenager" },
+            { ja: "高校生（男子）", en: "Japanese high school boy, older teenager" },
+            { ja: "高校生（女子）", en: "Japanese high school girl, older teenager" },
             { ja: "50代男性", en: "50s Japanese male, middle-aged man" },
             { ja: "20代女性", en: "20s Japanese female, young woman" },
             { ja: "40代男性", en: "40s Japanese male, middle-aged man" },
@@ -437,8 +442,7 @@ const parameterData = {
             { ja: "30代男性", en: "30s Japanese male, young man" },
             { ja: "40代女性", en: "40s Japanese female, middle-aged woman" },
             { ja: "20代男性", en: "20s Japanese male, young man" },
-            { ja: "50代女性", en: "50s Japanese female, middle-aged woman" },
-            { ja: "10代男性", en: "10s Japanese male, teenager boy" }
+            { ja: "50代女性", en: "50s Japanese female, middle-aged woman" }
         ]
     },
     B: {
@@ -531,7 +535,7 @@ const parameterData = {
             { ja: "真横から（プロフィール、綺麗な横顔のラインや、マイクとの距離感をストイックに切り取る構図）", en: "side profile shot, capturing clean facial lines and stoic distance from the studio microphone" },
             { ja: "斜め前（スリークォーター、顔の立体感と体の奥行きが最も美しく表現される定番のアングル）", en: "three-quarter angle shot, showcasing facial depth and body perspective beautifully" },
             { ja: "至近距離のクローズアップ（表情の微細なニュアンスや目元の輝き、ヘッドホンを持つ手元などにぐっと迫る構図）", en: "close-up shot, focusing closely on subtle facial nuances, sparkling eyes, or lips singing" },
-            { ja: "引き of ミディアムショット（腰から上を捉え、身振り手振りやコーディネート全体の雰囲気をバランスよく見せるアングル）", en: "medium shot, showing the subject from the waist up, capturing singing gestures and outfit details" },
+            { ja: "引き of ミディアムショット（腰から上を捉え、身振り手振りやコーディネート全体の雰囲力をバランスよく見せるアングル）", en: "medium shot, showing the subject from the waist up, capturing singing gestures and outfit details" },
             { ja: "劇的な俯瞰（真上から見下ろすようなアングル、スタジオの機材配置やノートに書かれた文字までデザイン的に見せる構図）", en: "dramatic bird's-eye view shot, looking straight down, showcasing studio layout and notebook text" },
             { ja: "劇的な煽り（床に近い極端に低い位置から見上げるアングル、ステージ上の主役のような圧倒的なカリスマ性を演出）", en: "extreme low-angle shot from near the floor, looking up, evoking superstar charisma and singing presence" },
             { ja: "背後からのプロショル（背後から被写体の肩越しにスタジオの奥を見据える構図、これから本番に挑むようなストーリー性を感じさせるアングル）", en: "over-the-shoulder shot from behind, looking past subject's back towards the studio depth, cinematic vibe" }
@@ -605,8 +609,8 @@ function buildPrompts(choices) {
     if (!isMultiple) {
         promptJa = `【ランダム要素構成】\n- ${elementsJaSingle.join('\n- ')}\n\n【固定プロンプト】\n・${fixedJaPrefix.split('、').join('\n・')}`;
     } else {
-        const isStudentFemale = choices.A.ja.includes("女性");
-        const isStudentMale = choices.A.ja.includes("男性");
+        const isStudentFemale = choices.A.ja.includes("女性") || choices.A.ja.includes("女子");
+        const isStudentMale = choices.A.ja.includes("男性") || choices.A.ja.includes("男子");
 
         let instructorGender = "female";
         if (isStudentFemale) {

@@ -10,8 +10,8 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
 /* ==========================================================================
-   Base Styles & Variables
-   ========================================================================== */
+Base Styles & Variables
+========================================================================== */
 :root {
     --bg-primary: #080b16;
     --bg-secondary: rgba(15, 22, 42, 0.6);
@@ -54,8 +54,8 @@ body {
 }
 
 /* ==========================================================================
-   Background Decorative Elements (Premium Glow)
-   ========================================================================== */
+Background Decorative Elements (Premium Glow)
+========================================================================== */
 .background-decor {
     position: fixed;
     top: 0;
@@ -91,8 +91,8 @@ body {
 }
 
 /* ==========================================================================
-   Layout
-   ========================================================================== */
+Layout
+========================================================================== */
 .app-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -152,8 +152,8 @@ header h1 {
 }
 
 /* ==========================================================================
-   Glassmorphism Cards
-   ========================================================================== */
+Glassmorphism Cards
+========================================================================== */
 .glass-card {
     background: var(--card-bg);
     backdrop-filter: var(--card-backdrop);
@@ -177,8 +177,8 @@ header h1 {
 }
 
 /* ==========================================================================
-   Buttons
-   ========================================================================== */
+Buttons
+========================================================================== */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -213,7 +213,6 @@ header h1 {
     transform: translateY(0);
 }
 
-/* 中央配置の大きな生成ボタン */
 .btn-large-run {
     padding: 1.25rem 3.5rem;
     font-size: 1.3rem;
@@ -221,7 +220,6 @@ header h1 {
     letter-spacing: 0.05em;
 }
 
-/* 大きく変更したコピーボタン */
 .btn-large-copy {
     background: rgba(255, 255, 255, 0.08);
     color: var(--text-primary);
@@ -229,7 +227,7 @@ header h1 {
     padding: 1.1rem;
     font-size: 1.1rem;
     width: 100%;
-    margin-bottom: 0.75rem; /* 下の出力枠との隙間 */
+    margin-bottom: 0.75rem;
     border-radius: 12px;
 }
 
@@ -246,8 +244,8 @@ header h1 {
 }
 
 /* ==========================================================================
-   Result Output Panel
-   ========================================================================== */
+Result Output Panel
+========================================================================== */
 .result-panel {
     display: flex;
     flex-direction: column;
@@ -283,7 +281,6 @@ header h1 {
     box-sizing: border-box;
 }
 
-/* Banner for Special Rules */
 .info-banner {
     display: flex;
     align-items: center;
@@ -304,8 +301,8 @@ header h1 {
 }
 
 /* ==========================================================================
-   Toast Notifications
-   ========================================================================== */
+Toast Notifications
+========================================================================== */
 .toast {
     position: fixed;
     bottom: 2rem;
@@ -336,7 +333,6 @@ header h1 {
     height: 1.2rem;
 }
 
-/* Highlight Animation */
 .prompt-output.highlight {
     animation: highlightFade 0.6s ease-out;
 }
@@ -352,7 +348,6 @@ header h1 {
     }
 }
 
-/* Footer */
 footer {
     text-align: center;
     color: var(--text-muted);
@@ -427,22 +422,25 @@ footer {
 // ==========================================================================
 const parameterData = {
     A: {
-        name: "人物の性別と年代",
+        name: "人物の性別と年代（服装込み）",
         items: [
-            { ja: "小学生（男子）", en: "Japanese elementary school boy, child" },
-            { ja: "小学生（女子）", en: "Japanese elementary school girl, child" },
-            { ja: "中学生（男子）", en: "Japanese junior high school boy, teenager" },
-            { ja: "中学生（女子）", en: "Japanese junior high school girl, teenager" },
-            { ja: "高校生（男子）", en: "Japanese high school boy, older teenager" },
-            { ja: "高校生（女子）", en: "Japanese high school girl, older teenager" },
-            { ja: "大学生（男子）", en: "Japanese male university student, young man" },
-            { ja: "大学生（女子）", en: "Japanese female university student, young woman" },
-            { ja: "30代男性", en: "30s Japanese male, young man" },
-            { ja: "30代女性", en: "30s Japanese female, young woman" },
-            { ja: "40代男性", en: "40s Japanese male, middle-aged man" },
-            { ja: "40代女性", en: "40s Japanese female, middle-aged woman" },
-            { ja: "50代男性", en: "50s Japanese male, middle-aged man" },
-            { ja: "50代女性", en: "50s Japanese female, middle-aged woman" }
+            // --- 小学生〜大学生：カジュアル・スポーティーな服装 ---
+            { ja: "小学生（男子）/ カジュアルスタイル（ボーダーTシャツとデニム）", en: "Japanese elementary school boy, child, wearing casual outfit with striped t-shirt and denim" },
+            { ja: "小学生（女子）/ スポーティースタイル（パーカーと短パン）", en: "Japanese elementary school girl, child, wearing sporty outfit with hoodie and shorts" },
+            { ja: "中学生（男子）/ スポーティースタイル（トラックジャケットとスウェット）", en: "Japanese junior high school boy, teenager, wearing sporty track jacket and sweatpants" },
+            { ja: "中学生（女子）/ カジュアルスタイル（オーバーサイズロンTとジーンズ）", en: "Japanese junior high school girl, teenager, wearing casual oversized long sleeve t-shirt and jeans" },
+            { ja: "高校生（男子）/ カジュアルスタイル（ストリート風スウェットとスニーカー）", en: "Japanese high school boy, older teenager, wearing casual street-style sweatshirt" },
+            { ja: "高校生（女子）/ スポーティースタイル（スポーティーなジップパーカー）", en: "Japanese high school girl, older teenager, wearing sporty zip hoodie" },
+            { ja: "大学生（男子）/ カジュアルスタイル（ラフなニットとチノパン）", en: "Japanese male university student, young man, wearing casual relaxed knit sweater" },
+            { ja: "大学生（女子）/ スポーティースタイル（スポーティーなスウェットカーディガン）", en: "Japanese female university student, young woman, wearing casual sporty sweat cardigan" },
+            
+            // --- 30代以降：ビジネス・フォーマルな服装 ---
+            { ja: "30代男性 / ビジネスカジュアル（テーラードジャケットとドレスシャツ）", en: "30s Japanese male, young man, wearing smart business casual tailored jacket and shirt" },
+            { ja: "30代女性 / フォーマルスタイル（上品なセットアップスーツ）", en: "30s Japanese female, young woman, wearing elegant formal business suit" },
+            { ja: "40代男性 / フォーマルスタイル（クラシックなスーツとネクタイ）", en: "40s Japanese male, middle-aged man, wearing professional classic formal suit with tie" },
+            { ja: "40代女性 / ビジネスカジュアル（洗練されたブラウスとジャケット）", en: "40s Japanese female, middle-aged woman, wearing sophisticated business casual blouse and jacket" },
+            { ja: "50代男性 / ビジネスカジュアル（落ち着いたジャケットとスラックス）", en: "50s Japanese male, middle-aged man, wearing refined business casual jacket" },
+            { ja: "50代女性 / フォーマルスタイル（フォーマルなジャケットスタイル）", en: "50s Japanese female, middle-aged woman, wearing high-end formal jacket outfit" }
         ]
     },
     B: {
@@ -477,25 +475,6 @@ const parameterData = {
             { ja: "スッとした高い鼻（クールビューティー）（鼻筋が真っ直ぐに通った高くて綺麗な鼻、横顔のラインが美しく映える端正な顔立ち）", en: "straight high bridge defined nose, beautiful clean profile line, elegant sharp features" }
         ]
     },
-    E: {
-        name: "姿勢とポーズ（マイク・ヘッドホン操作や構図）",
-        items: [
-            { ja: "スタジオのオーディオミキサーデスクに片肘を置き、モニターを覗き込む上半身の構図（頭には大型スタジオヘッドホンを装着）", en: "leaning an elbow on the studio audio mixer desk, looking closely towards the monitor, wearing large studio headphones on the head" },
-            { ja: "背筋を真っ直ぐに伸ばし、片手を胸にそっと添えてスタンドマイクに向かう立ち姿（首にはヘッドホン掛け）", en: "standing straight with excellent posture, one hand placed gently on the chest facing a studio stand microphone, with headphones around the neck" },
-            { ja: "ヘッドホンを首にかけ、大きめのスタジオチェアに少し丸まるように腰掛けリラックスして休む姿勢", en: "sitting relaxed on a large studio chair in a cozy, slightly curled posture with headphones around the neck to rest the voice" },
-            { ja: "魂を込めて歌い上げるように片手を高く天に突き上げ、マイクをしっかりと握りしめて顎を少し上げた立ち姿", en: "standing tall with chin slightly up and one arm thrust dynamically high toward the ceiling, tightly gripping the microphone" },
-            { ja: "声をスタジオ全体に響かせるように両腕を左右にダイナミックに広げたフォーム（マイクスタンドから少し体を離してプロジェクション）", en: "standing with both arms spread wide to the sides in a dynamic open vocal projection posture, keeping a slight distance from the microphone" },
-            { ja: "片手にワイヤレスマイクを持ち、リズムに乗ってカメラ側へ力強く一歩を踏み出す躍動感のある全身ショット", en: "captured in a full-body shot stepping confidently forward toward the camera with rhythmic energy, holding a wireless microphone in one hand" },
-            { ja: "コード付きヘッドホンを着用し、マイクスタンドの前から上半身をクルッとこちらに振り向かせるドラマチックな動き", en: "captured in a dynamic half-turn motion wearing corded headphones, turning away from the microphone stand to look back" },
-            { ja: "サビの最高潮を表現するように前のめりになり、グリルを手で覆うようにマイクを両手でギュッと掴む姿勢", en: "leaning forward energetically while tightly gripping the microphone with both hands, hands covering the microphone grille to show intense passion" }
-        ]
-    },
-    Coord: {
-        name: "服の色（自動）",
-        items: [
-            { ja: "コーディネートA〜Lによる", en: "" }
-        ]
-    },
     H: {
         name: "髪型",
         male: [
@@ -517,13 +496,13 @@ const parameterData = {
         ]
     },
     I: {
-        name: "表情",
+        name: "表情（素人生徒のリアルな表情）",
         items: [
-            { ja: "伸びやかに歌う笑顔（口を大きく開けて爽やかに歌い上げている、楽しそうで輝くような表情）", en: "singing bright and broad with an open mouth, radiant joyful expression" },
-            { ja: "情熱的なソウルフルソング（眉間に少しシワを寄せ、口をしっかり開けて感情いっぱいに歌い込む表情）", en: "singing passionately with an open mouth, slightly furrowed brow, full of intense emotion" },
-            { ja: "優しく語りかける歌声（口元をゆるやかに開け、語りかけるように優しく歌っている柔らかな表情）", en: "singing softly with a gentle open mouth, warm and tender facial expression" },
-            { ja: "サビのパワフルボイス（口を大きく縦に開けてダイナミックに声を張り上げている、生き生きとした表情）", en: "singing dynamic high notes with a wide open mouth, lively energetic expression" },
-            { ja: "切なく囁くバラード（伏し目がちに口をわずかに開け、囁くようにしっとりと歌う繊細な表情）", en: "singing a quiet ballad with a soft downcast gaze and slightly open lips, delicate emotional expression" }
+            { ja: "一生懸命声を出している表情（少し眉根を寄せて集中し、素朴に頑張っている表情）", en: "earnest expression, practicing hard with focused eyes" },
+            { ja: "不安そうに音程を探る表情（目元を少し揺らし、慎重に声を張り出している緊張した表情）", en: "slightly anxious expression, carefully seeking the right pitch" },
+            { ja: "真剣にアドバイスを聞く表情（口を真一文字に結び、相手の話を真剣に頷きながら聴く表情）", en: "serious attentive expression, listening closely to teacher's advice" },
+            { ja: "少し恥ずかしそうな照れ笑い（上手く出せない部分があり、苦笑いしながらも楽しそうな表情）", en: "shy smile, feeling slightly embarrassed yet enjoying the lesson process" },
+            { ja: "発見があった瞬間の表情（「なるほど！」と目を少し丸くして納得したような生き生きとした表情）", en: "realization expression, eyes widened with an 'aha!' moment of understanding" }
         ]
     },
     J: {
@@ -579,9 +558,8 @@ const toastMessage = document.getElementById('toast-message');
 function generateComposition() {
     const choices = {};
     
-    // 通常の項目をランダム選択
     Object.keys(parameterData).forEach(key => {
-        if (key === "H") return; // 髪型は後で性別に基づいて選択
+        if (key === "H") return;
         
         const items = parameterData[key].items;
         const selectedIndex = Math.floor(Math.random() * items.length);
@@ -592,7 +570,6 @@ function generateComposition() {
         };
     });
 
-    // 性別を判定して髪型(H)を選択
     const genderChoice = choices.A.ja;
     const isMale = genderChoice.includes("男子") || genderChoice.includes("男性");
     const hairList = isMale ? parameterData.H.male : parameterData.H.female;
@@ -612,9 +589,8 @@ function buildPrompts(choices) {
     let promptJa = "";
 
     const elementsJaSingle = [
-        `人物: ${choices.A.ja} (${choices.C.ja}, ${choices.H.ja})`,
+        `人物(素人・レッスン生): ${choices.A.ja} (特徴: ${choices.C.ja}, 髪型: ${choices.H.ja})`,
         `表情: ${choices.I.ja}`,
-        `姿勢・ポーズ: ${choices.E.ja}`,
         `場所と雰囲気(機材含む): ${choices.B.ja}`,
         `アングル: ${choices.J.ja}`,
         `質感: ${choices.K.ja}`,
@@ -639,43 +615,45 @@ function buildPrompts(choices) {
         }
 
         const instructorAges = [
-            { ja: "20代", en: "20s" },
+            { ja: "20代後半", en: "late 20s" },
             { ja: "30代", en: "30s" },
             { ja: "40代", en: "40s" }
         ];
         const chosenAge = instructorAges[Math.floor(Math.random() * instructorAges.length)];
 
+        // プロっぽい専門的な講師の服装スタイル
         const instructorClothes = [
-            { ja: "シンプルな黒のTシャツ", en: "simple black t-shirt" },
-            { ja: "シンプルな白のTシャツ", en: "simple white t-shirt" },
-            { ja: "シンプルな黒のシャツ", en: "simple black button-up shirt" },
-            { ja: "シンプルな白のシャツ", en: "simple white button-up shirt" }
+            { ja: "スマートなテーラードジャケットとインナーTシャツ（洗練されたプロ講師スタイル）", en: "smart tailored jacket with plain inner shirt, sleek professional instructor style" },
+            { ja: "シックな黒のポロシャツ（スポーティーかつ洗練されたヴォーカルコーチスタイル）", en: "sleek black polo shirt, professional vocal coach appearance" },
+            { ja: "上質なダーク系のオープンカラーシャツ（スタイリッシュな音響・音楽指導者スタイル）", en: "stylish dark open-collar shirt, professional music instructor look" },
+            { ja: "シンプルで清潔感のあるきれいめシャツ（信頼感のあるプロインストラクタースタイル）", en: "clean button-up shirt, trustworthy professional teacher look" }
         ];
         const chosenClothes = instructorClothes[Math.floor(Math.random() * instructorClothes.length)];
 
+        // プロっぽい指導ポーズ
         const instructorPoses = [
-            { ja: "生徒の少し後ろから笑顔で優しく見守る", en: "standing slightly behind the student, gently watching over the student with a warm smile" },
-            { ja: "生徒の少し後ろからジェスチャーを交えてアドバイスを送る", en: "standing slightly behind the student, giving vocal advice with friendly hand gestures" }
+            { ja: "生徒の脇で丁寧な手振り（ハンドジェスチャー）を交え、正確な発声リズムや口の形を分かりやすく指導する", en: "standing beside the student, demonstrating correct vocal technique and mouth shape with clear professional hand gestures" },
+            { ja: "キーボードや機材の前に座り、音程を確認しながら親身かつ的確にフィードバックを送る", en: "sitting near the keyboard, giving precise expert feedback with an encouraging expression" },
+            { ja: "生徒の少し斜め後ろから、優しい笑顔でプロとしての温かい眼差しで見守り助言する", en: "standing slightly behind the student, watching over with a supportive professional smile and giving guidance" }
         ];
         const chosenPose = instructorPoses[Math.floor(Math.random() * instructorPoses.length)];
 
         const genderJa = instructorGender === "female" ? "女性" : "男性";
 
-        const instructorJaDesc = `${chosenAge.ja}${genderJa}（髪型: 清潔感のあるナチュラルなスタイル、服装: ${chosenClothes.ja}、ポーズ: ${chosenPose.ja}）`;
+        const instructorJaDesc = `プロのボイストレーナー（${chosenAge.ja}${genderJa}、髪型: 清潔感と洗練されたプロスタイル、服装: ${chosenClothes.ja}、ポーズ: ${chosenPose.ja}）`;
 
         const elementsJaMultiple = [
-            `手前の生徒(主役): ${choices.A.ja} (${choices.C.ja}, ${choices.H.ja})`,
+            `手前の生徒(素人・主役): ${choices.A.ja} (特徴: ${choices.C.ja}, 髪型: ${choices.H.ja})`,
             `生徒の表情: ${choices.I.ja}`,
-            `生徒の姿勢・ポーズ: ${choices.E.ja}`,
-            `奥の講師(自動設定): ${instructorJaDesc}`,
+            `奥の講師(プロ指導者): ${instructorJaDesc}`,
             `場所と雰囲気(機材含む): ${choices.B.ja}`,
             `アングル: ${choices.J.ja}`,
             `質感: ${choices.K.ja}`,
-            `二人の関係性: ボーカルレッスン中`,
+            `二人の関係性: プロ講師によるボイストレーニングレッスン風景`,
             `ピント・顔描写: 講師の顔の描写が破綻したり極端にボケたりしないよう最適化 (${choices.K.ja.includes("背景ボケ") ? "奥はややソフトだが表情判別可能" : "両者にピント"})`
         ];
 
-        promptJa = `【ランダム要素構成】\n- ${elementsJaMultiple.join('\n- ')}\n\n【固定プロンプト】\n・${fixedJaPrefix.split('、').join('\n・')}\n・レッスン風景2人構図`;
+        promptJa = `【ランダム要素構成】\n- ${elementsJaMultiple.join('\n- ')}\n\n【固定プロンプト】\n・${fixedJaPrefix.split('、').join('\n・')}\n・本格的なボイトレレッスン風景2人構図`;
     }
 
     return {
@@ -719,7 +697,7 @@ function handleExecution() {
     
     if (prompts.isMultiple) {
         specialRulesBanner.style.display = 'flex';
-        specialRulesText.textContent = "「複数」ルール適用：奥の講師はシンプル（白黒Tシャツ、笑顔で見守る、顔ボケなし）が追加されています。";
+        specialRulesText.textContent = "「複数」ルール適用：奥の講師はプロのトレーナー仕様（ジャケット/ポロシャツ、的確な指導ポーズ、顔ボケなし）が適用されています。";
     } else {
         specialRulesBanner.style.display = 'none';
     }

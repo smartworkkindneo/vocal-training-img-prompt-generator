@@ -498,17 +498,22 @@ const parameterData = {
     },
     H: {
         name: "髪型",
-        items: [
-            { ja: "ソフトモヒカン：爽やかな黒髪ソフトモヒカン（サイドをすっきりと刈り上げ、トップを少し立ち上げた清潔感のあるベリーショート）", en: "soft mohawk hairstyle, neatly trimmed sides and slightly standing top, clean and refreshing very short style" },
+        male: [
+            { ja: "坊主：すっきりとした清潔感のあるベリーショート（頭の形が綺麗に見える短めの坊主スタイル、スポーティーで爽やかな印象）", en: "buzz cut hairstyle, neatly trimmed clean short hair, sporty and refreshing look" },
             { ja: "クロップスタイル：エッジの効いたダークトーンのクロップスタイル（サイドの刈り上げと、前髪を水平に短く切り揃えたストリート感あふれるスタイル）", en: "dark tone crop style haircut, faded sides and blunt straight cropped bangs, urban street style" },
+            { ja: "七三分け：ビジネスにも対応するスマートな七三分け（サイドをタイトに抑え、トップを立ち上げて流した清潔感と誠実さのあるスタイル）", en: "smart 7:3 side part hairstyle, tight sides and voluminous swept-back top, clean and sincere business-ready look" },
+            { ja: "ツイストパーマ：無造作な質感のツイストパーマ（髪をねじりながらかけることで、チリチリとした立体感とシャープな動きを出したストリートスタイル）", en: "twist perm hairstyle, random and sharp textured movement by twisting hair, cool street style" },
+            { ja: "マッシュヘア：トレンド感のあるナチュラルマッシュ（前髪を下ろし重たさと丸みを持たせた、親しみやすくおしゃれなスタイル）", en: "natural mash hairstyle, rounded silhouette with textured bangs, modern stylish look" },
+            { ja: "センターパート：知的な印象のセンターパート（前髪を真ん中で分け、サイドへ自然に流した大人っぽく爽やかなスタイル）", en: "center part hairstyle, curtain bangs naturally swept to sides, intellectual and fresh look" }
+        ],
+        female: [
+            { ja: "耳掛けショート：スッキリとした印象の耳掛けショート（片側のサイドの髪を耳にかけ、フェイスラインを美しく見せる爽やかでおしゃれなスタイル）", en: "behind-the-ear short haircut, stylish short hair with hair tucked behind the ear on one side, clean and refreshing look" },
             { ja: "ショートボブ：透明感のあるアッシュベージュのショートボブ（顎ラインの丸みのあるシルエットで、小顔効果と女性らしさを引き立てるスタイル）", en: "ash beige short bob hairstyle, rounded silhouette at jawline, small face effect and feminine style" },
             { ja: "ウルフカット：躍動感のあるブラックアッシュのウルフカット（トップは丸みを残しつつ、襟足を長めに残して外ハネさせたトレンド感のあるスタイル）", en: "dynamic black ash wolf cut, rounded top with longer flipped-out ends at the nape, trendy layered style" },
             { ja: "前髪ぱっつん：モードな雰囲気 of ダークブラウンストレート（眉上で綺麗に切り揃えられた前髪が印象的な、目力を強調するストレートヘア）", en: "dark brown straight hair with blunt straight bangs cut neatly above the eyebrows, impressive and eye-catching mode style" },
-            { ja: "七三分け：ビジネスにも対応するスマートな七三分け（サイドをタイトに抑え、トップを立ち上げて流した清潔感と誠実さのあるスタイル）", en: "smart 7:3 side part hairstyle, tight sides and voluminous swept-back top, clean and sincere business-ready look" },
-            { ja: "ツイスト：無造作な質感のツイストパーマ（髪をねじりながらかけることで、チリチリとした立体感とシャープな動きを出したストリートスタイル）", en: "twist perm hairstyle, random and sharp textured movement by twisting hair, cool street style" },
-            { ja: "ドレッド：存在感抜群 of ドレッドロックス（しっかりと束ねられた重厚感のあるシルエットで、圧倒的な個性とストリートカルチャーを表現するスタイル）", en: "dreadlocks hairstyle, thick and tightly locked hair, overwhelming presence and street culture style" },
-            { ja: "アフロ：丸いシルエットが特徴のアフロヘア（全体にしっかりとしたボリュームを持たせた、豊かな表現力とインパクトのある個性派スタイル）", en: "afro hairstyle, large and perfectly rounded volume, high impact and expressive unique style" },
-            { ja: "ポニーテール：すっきりとしたハイポニーテール（高めの位置で結ぶことでフェイスラインを出し、アクティブで爽やかな印象を与えるヘアアレンジ）", en: "high ponytail hairstyle, tied up high to reveal a clear neckline and face, active and refreshing arrangement" }
+            { ja: "ポニーテール：すっきりとしたハイポニーテール（高めの位置で結ぶことでフェイスラインを出し、アクティブで爽やかな印象を与えるヘアアレンジ）", en: "high ponytail hairstyle, tied up high to reveal a clear neckline and face, active and refreshing arrangement" },
+            { ja: "ロングウェーブ：華やかなロングゆるウェーブ（全体に柔らかいウェーブをかけ、優しくエレガントな女性らしさを演出するスタイル）", en: "long wavy hairstyle, soft feminine loose waves, elegant and beautiful flow" },
+            { ja: "シニヨン/おだんご：ナチュラルなおだんごヘア（高めの位置でラフにまとめた、アクティブかつ可愛らしさのあるヘアアレンジ）", en: "messy bun hairstyle, loosely tied topknot, cute and casual look" }
         ]
     },
     I: {
@@ -518,11 +523,11 @@ const parameterData = {
             { ja: "真剣・情熱的（眉間に少し力を入れ、歌や音楽に魂を込めて没頭している強い眼差し）", en: "with a serious and passionate expression, slightly furrowed brow, intense gaze devoted entirely to singing" },
             { ja: "弾ける爆笑（目を細めて口を大きく開け、心の底から楽しそうに笑っている生き生きとした表情）", en: "with a bursting big laugh, squinted eyes, open mouth, looking lively and genuinely happy" },
             { ja: "少し緊張したハニカミ（カメラを意識して少し頬を染め、はにかむように口元をすぼめた初々しい表情）", en: "with a slightly nervous shy smile, blushing cheeks, looking cute and self-conscious" },
-            { ja: "集中・思索（フッと唇を真横に結び、次のフレーズを頭の中でなぞるように一点を見つめるストイックな表情）", en: "with a focused and contemplative look, lips pressed straight, eyes fixed on one point as if visualizing the next lyric" },
-            { ja: "感動・エモーショナル（潤んだ瞳で胸がいっぱいになったような、優しくも切ないニュアンスのある表情）", en: "with a deeply moved emotional expression, watery eyes, soft and poignant expression" },
+            // { ja: "集中・思索（フッと唇を真横に結び、次のフレーズを頭の中でなぞるように一点を見つめるストイックな表情）", en: "with a focused and contemplative look, lips pressed straight, eyes fixed on one point as if visualizing the next lyric" },
+            // { ja: "感動・エモーショナル（潤んだ瞳で胸がいっぱいになったような、優しくも切ないニュアンスのある表情）", en: "with a deeply moved emotional expression, watery eyes, soft and poignant expression" },
             { ja: "振り返る一瞬の視線（名前を呼ばれてハッとしたように、こちらに意識が向いた瞬間のカメラ目線）", en: "with a sudden looking-back gaze, making direct eye contact with the camera lens" },
             { ja: "横を見るクールな目線（視線を真横の機材や楽譜に落とし、フェイスラインの美しさが際立つ横顔）", en: "with a cool sideways gaze, looking towards sheet music or gear, showcasing a clean jawline profile" },
-            { ja: "下を向くアンニュイな視線（伏し目がちにして、どこか物憂げでノスタルジックな雰囲気を纏った大人の表情）", en: "with an ennui downcast look, eyes looking downward, creating a melancholic and nostalgic atmosphere" },
+            // { ja: "下を向くアンニュイな視線（伏し目がちにして、どこか物憂げでノスタルジックな雰囲気を纏った大人の表情）", en: "with an ennui downcast look, eyes looking downward, creating a melancholic and nostalgic atmosphere" },
             { ja: "遠くを見つめる未来志向の瞳（スタジオの窓の外や遠くの空間を見つめ、これからの成長や夢を馳せるような輝きのある目線）", en: "with a forward-looking gaze, looking into the distance, dreaming about future artistic growth" }
         ]
     },
@@ -535,7 +540,7 @@ const parameterData = {
             { ja: "真横から（プロフィール、綺麗な横顔のラインや、マイクとの距離感をストイックに切り取る構図）", en: "side profile shot, capturing clean facial lines and stoic distance from the studio microphone" },
             { ja: "斜め前（スリークォーター、顔の立体感と体の奥行きが最も美しく表現される定番のアングル）", en: "three-quarter angle shot, showcasing facial depth and body perspective beautifully" },
             { ja: "至近距離のクローズアップ（表情の微細なニュアンスや目元の輝き、ヘッドホンを持つ手元などにぐっと迫る構図）", en: "close-up shot, focusing closely on subtle facial nuances, sparkling eyes, or lips singing" },
-            { ja: "引き of ミディアムショット（腰から上を捉え、身振り手振りやコーディネート全体の雰囲力をバランスよく見せるアングル）", en: "medium shot, showing the subject from the waist up, capturing singing gestures and outfit details" },
+            { ja: "引き of ミディアムショット（腰から上を捉え、身振り手振りやコーディネート全体の雰囲気をバランスよく見せるアングル）", en: "medium shot, showing the subject from the waist up, capturing singing gestures and outfit details" },
             { ja: "劇的な俯瞰（真上から見下ろすようなアングル、スタジオの機材配置やノートに書かれた文字までデザイン的に見せる構図）", en: "dramatic bird's-eye view shot, looking straight down, showcasing studio layout and notebook text" },
             { ja: "劇的な煽り（床に近い極端に低い位置から見上げるアングル、ステージ上の主役のような圧倒的なカリスマ性を演出）", en: "extreme low-angle shot from near the floor, looking up, evoking superstar charisma and singing presence" },
             { ja: "背後からのプロショル（背後から被写体の肩越しにスタジオの奥を見据える構図、これから本番に挑むようなストーリー性を感じさせるアングル）", en: "over-the-shoulder shot from behind, looking past subject's back towards the studio depth, cinematic vibe" }
@@ -578,7 +583,11 @@ const toastMessage = document.getElementById('toast-message');
 
 function generateComposition() {
     const choices = {};
+    
+    // 通常の項目をランダム選択
     Object.keys(parameterData).forEach(key => {
+        if (key === "H") return; // 髪型は後で性別に基づいて選択
+        
         const items = parameterData[key].items;
         const selectedIndex = Math.floor(Math.random() * items.length);
         choices[key] = {
@@ -587,6 +596,19 @@ function generateComposition() {
             index: selectedIndex + 1
         };
     });
+
+    // 性別を判定して髪型(H)を選択
+    const genderChoice = choices.A.ja;
+    const isMale = genderChoice.includes("男子") || genderChoice.includes("男性");
+    const hairList = isMale ? parameterData.H.male : parameterData.H.female;
+    
+    const selectedHairIndex = Math.floor(Math.random() * hairList.length);
+    choices.H = {
+        ja: hairList[selectedHairIndex].ja,
+        en: hairList[selectedHairIndex].en,
+        index: selectedHairIndex + 1
+    };
+
     return choices;
 }
 

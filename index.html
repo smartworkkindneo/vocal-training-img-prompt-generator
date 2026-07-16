@@ -424,16 +424,15 @@ const parameterData = {
     A: {
         name: "人物の性別と年代（服装込み）",
         items: [
-            // --- 小学生〜大学生：カジュアル・スポーティーな服装 ---
-            { ja: "小学生（男子）/ カジュアルスタイル（ボーダーTシャツとデニム）", en: "Japanese elementary school boy, child, wearing casual outfit with striped t-shirt and denim" },
-            { ja: "小学生（女子）/ スポーティースタイル（パーカーと短パン）", en: "Japanese elementary school girl, child, wearing sporty outfit with hoodie and shorts" },
-            { ja: "中学生（男子）/ スポーティースタイル（トラックジャケットとスウェット）", en: "Japanese junior high school boy, teenager, wearing sporty track jacket and sweatpants" },
-            { ja: "中学生（女子）/ カジュアルスタイル（オーバーサイズロンTとジーンズ）", en: "Japanese junior high school girl, teenager, wearing casual oversized long sleeve t-shirt and jeans" },
-            { ja: "高校生（男子）/ カジュアルスタイル（ストリート風スウェットとスニーカー）", en: "Japanese high school boy, older teenager, wearing casual street-style sweatshirt" },
-            { ja: "高校生（女子）/ スポーティースタイル（スポーティーなジップパーカー）", en: "Japanese high school girl, older teenager, wearing sporty zip hoodie" },
-            { ja: "大学生（男子）/ カジュアルスタイル（ラフなニットとチノパン）", en: "Japanese male university student, young man, wearing casual relaxed knit sweater" },
-            { ja: "大学生（女子）/ スポーティースタイル（スポーティーなスウェットカーディガン）", en: "Japanese female university student, young woman, wearing casual sporty sweat cardigan" },
-            
+// --- 小学生〜大学生：カジュアル・スポーティーな服装（上半身は明るい色） ---
+            { ja: "小学生（男子）/ カジュアルスタイル（明るい黄色のボーダーTシャツとデニム）", en: "Japanese elementary school boy, child, wearing casual outfit with bright yellow striped t-shirt and denim" },
+            { ja: "小学生（女子）/ スポーティースタイル（明るいピンクのパーカーとダメージ加工ビンテージデニムショートパンツ）", en: "Japanese elementary school girl, child, wearing sporty outfit with bright pink hoodie and distressed vintage denim shorts" },
+            { ja: "中学生（男子）/ スポーティースタイル（爽やかな白のトラックジャケットとスウェット）", en: "Japanese junior high school boy, teenager, wearing sporty bright white track jacket and sweatpants" },
+            { ja: "中学生（女子）/ カジュアルスタイル（明るいパステルブルーのオーバーサイズロンTと濃紺デニムのミニスカート）", en: "Japanese junior high school girl, teenager, wearing casual bright pastel blue oversized long sleeve t-shirt and dark navy denim miniskirt" },
+            { ja: "高校生（男子）/ カジュアルスタイル（明るいライトグレーのストリート風スウェットにシルバーのチェーンネックレス、スニーカー）", en: "Japanese high school boy, older teenager, wearing casual street-style light gray sweatshirt and silver chain necklace" },
+            { ja: "高校生（女子）/ スポーティースタイル（明るいミントグリーンのジップパーカー）", en: "Japanese high school girl, older teenager, wearing sporty bright mint green zip hoodie" },
+            { ja: "大学生（男子）/ カジュアルスタイル（明るいベージュのラフなニットにシルバーのチェーンネックレス、チノパン）", en: "Japanese male university student, young man, wearing casual relaxed light beige knit sweater and silver chain necklace" },
+            { ja: "大学生（女子）/ スポーティースタイル（明るいアイボリーのスウェットカーディガン）", en: "Japanese female university student, young woman, wearing casual sporty bright ivory sweat cardigan" },
             // --- 30代以降：ビジネス・フォーマルな服装 ---
             { ja: "30代男性 / ビジネスカジュアル（テーラードジャケットとドレスシャツ）", en: "30s Japanese male, young man, wearing smart business casual tailored jacket and shirt" },
             { ja: "30代女性 / フォーマルスタイル（上品なセットアップスーツ）", en: "30s Japanese female, young woman, wearing elegant formal business suit" },
@@ -464,7 +463,7 @@ const parameterData = {
         name: "人物の特徴",
         items: [
             { ja: "高身長・モデル体型（背が高くスラリとした高身長、手足が長く全体のバランスが良いスマートな体型）", en: "tall and slender model-like physique, long limbs, well-balanced smart body shape" },
-            { ja: "がっちり・アスリート体型（肩幅が広く骨組みがしっかりとした、程よく筋肉質で健康的ながっちり体型）", en: "broad-shouldered athletic build, solid bone structure, moderately muscular and healthy fit physique" },
+            // { ja: "がっちり・アスリート体型（肩幅が広く骨組みがしっかりとした、程よく筋肉質で健康的ながっちり体型）", en: "broad-shouldered athletic build, solid bone structure, moderately muscular and healthy fit physique" },
             { ja: "小柄・華奢（やせ型）（全体的に線が細く華奢な印象を与える、スリムで引き締まったやせ型の体型）", en: "petite and slender slim build, delicate frame, toned thin body shape" },
             { ja: "丸顔・ふっくら体型（親しみやすさを感じるふっくらとした丸顔の輪郭、優しく柔らかい雰囲気 of body shape）", en: "friendly round face chubby outline, soft gentle and plump body shape" },
             { ja: "シャープ・逆三角（キツネ顔）（顎のラインが綺麗に尖ったシャープな逆三角形の輪郭、すっきりした知的な顔立ち）", en: "sharp inverted triangle face outline, well-defined clean jawline, intelligent fox-like facial features" },
@@ -508,29 +507,29 @@ const parameterData = {
     J: {
         name: "撮影アングル",
         items: [
-            { ja: "目線の高さ（アイレベル、被写体と正面から向き合う王道で親しみやすいアングル）", en: "eye-level shot, camera facing the subject directly, friendly and engaging view" },
-            { ja: "少し上から（ハイアングル、上目遣いの表情を強調し、背景の広がりを見せる構図）", en: "slightly high-angle shot, highlighting upturned eyes and showcasing background context" },
-            { ja: "少し下から（ローアングル、被写体の存在感やスタイルを引き立て、ダイナミックで堂々とした印象を与える構図）", en: "slightly low-angle shot, highlighting subject's presence and posture, dynamic view" },
-            { ja: "真横から（プロフィール、綺麗な横顔のラインや雰囲気をストイックに切り取る構図）", en: "side profile shot, capturing clean facial lines and stoic atmosphere" },
-            { ja: "斜め前（スリークォーター、顔の立体感と体の奥行きが最も美しく表現される定番のアングル）", en: "three-quarter angle shot, showcasing facial depth and body perspective beautifully" },
-            { ja: "至近距離のクローズアップ（表情の微細なニュアンスや目元の輝き、歌う口元などにぐっと迫る構図）", en: "close-up shot, focusing closely on subtle facial nuances, sparkling eyes, or lips singing" },
-            { ja: "引きのミディアムショット（腰から上を捉え、身振り手振りやコーディネート全体の雰囲気をバランスよく見せるアングル）", en: "medium shot, showing the subject from the waist up, capturing gestures and outfit details" },
-            { ja: "劇的な俯瞰（真上から見下ろすようなアングル、周囲の配置や小物をデザイン的に見せる構図）", en: "dramatic bird's-eye view shot, looking straight down, showcasing surrounding layout" },
-            { ja: "劇的な煽り（床に近い極端に低い位置から見上げるアングル、主役のような圧倒的なカリスマ性を演出）", en: "extreme low-angle shot from near the floor, looking up, evoking impressive presence and charisma" },
-            { ja: "背後からのプロショル（背後から被写体の肩越しに奥を見据える構図、ドラマチックなストーリー性を感じさせるアングル）", en: "over-the-shoulder shot from behind, looking past subject's back into the distance, cinematic vibe" }
+            { ja: "目線の高さ（アイレベルの引き、被写体の全身と正面から向き合い、周囲の空間も広く捉える王道のアングル）", en: "eye-level wide shot, full-body view facing the subject directly with spacious background" },
+            { ja: "少し上から（ハイアングルの引き、少し高い位置から見下ろし、全身の立ち姿と足元の広がりを綺麗に見せる構図）", en: "slightly high-angle full shot, looking down slightly to showcase full posture and surrounding ground" },
+            { ja: "少し下から（ローアングルの引き、低い位置から全身を仰ぎ見ることにより、スタイルや存在感をダイナミックに引き立てる構図）", en: "slightly low-angle long shot, looking up to emphasize full-body scale, posture, and dynamic presence" },
+            { ja: "真横から（プロフィール全体の引き、全身の横顔ラインや佇まい、その場の静かな雰囲気をストイックに切り取る構図）", en: "full-body side profile shot, capturing the complete side silhouette and quiet atmosphere" },
+            { ja: "斜め前（スリークォーターの引き、斜めから全身を捉え、体の奥行きと周囲のロケーションを最も美しく表現する定番のアングル）", en: "three-quarter angle wide shot, showcasing full-body depth and environmental perspective beautifully" },
+            { ja: "背景を含めた引き（ロングショット、被写体をあえて小さめに配置し、ロケーションの空気感や壮大な背景の中に佇む姿を捉える構図）", en: "extreme wide shot, placing the full body smaller within a vast background to capture environmental atmosphere" },
+            { ja: "引きのフルショット（頭からつま先まで全身を収め、コーディネート全体の雰囲気や立ち振る舞いをバランスよく見せるアングル）", en: "full-body shot, capturing from head to toe to balance entire outfit and overall gestures" },
+            { ja: "劇的な俯瞰の引き（真上から見下ろすロングショット、床面のデザインや周囲に置かれた小物を含め、全体をグラフィカルに見せる構図）", en: "dramatic bird's-eye view wide shot, looking straight down to showcase full scene layout and graphical design" },
+            { ja: "劇的な煽りの引き（床に近い極端に低い位置から全身を見上げる広角アングル、背景の天井まで取り込み、圧倒的なスケール感を演出）", en: "extreme low-angle wide shot from near the floor, looking up at the full body to evoke a dramatic and massive scale" },
+            { ja: "背後からの引き（バックショット、後ろ姿の全身を捉え、背中越しに広がる景色やその先のストーリー性を感じさせるアングル）", en: "full-body back shot, looking past the subject's back into the wide distance, evoking a cinematic journey" }
         ]
     },
-    // K: {
-    //     name: "写真の雰囲気や質感",
-    //     items: [
-    //         { ja: "50mm標準ポートレート（背景を適度にぼかし人物を引き立てる）", en: "shot on 50mm standard portrait lens, moderately blurred background highlighting the person" },
-    //         { ja: "背景ボケ（奥の背景をなめらかにぼかす、※ただし複数人構図の場合は奥の人物がボケすぎないように注意）", en: "with soft background bokeh, smooth out-of-focus background, ensuring clear facial structure" },
-    //         { ja: "シネマティック（映画のワンシーンのようなドラマチックな色味とライティング）", en: "cinematic photography, dramatic color grading and cinematic studio lighting, movie scene atmosphere" },
-    //         { ja: "ドキュメンタリー風（リアルな日常の練習風景を切り取ったような質感）", en: "documentary photography style, capturing candid singing practice scene, realistic everyday look" },
-    //         { ja: "スマホスナップ風（親しみやすさのある自然体な写真の質感）", en: "casual smartphone snapshot style, natural and candid music lesson photography style" },
-    //         { ja: "広角（スタジオ全体の広がりが伝わる奥行きのある質感）", en: "wide-angle lens shot, showcasing studio depth and spacious singing room atmosphere" }
-    //     ]
-    // },
+    K: {
+        name: "写真の雰囲気や質感",
+        items: [
+            { ja: "50mm標準ポートレート（背景を適度にぼかし人物を引き立てる）", en: "shot on 50mm standard portrait lens, moderately blurred background highlighting the person" },
+            { ja: "背景ボケ（奥の背景をなめらかにぼかす、※ただし複数人構図の場合は奥の人物がボケすぎないように注意）", en: "with soft background bokeh, smooth out-of-focus background, ensuring clear facial structure" },
+            { ja: "シネマティック（映画のワンシーンのようなドラマチックな色味とライティング）", en: "cinematic photography, dramatic color grading and cinematic studio lighting, movie scene atmosphere" },
+            { ja: "ドキュメンタリー風（リアルな日常の練習風景を切り取ったような質感）", en: "documentary photography style, capturing candid singing practice scene, realistic everyday look" },
+            { ja: "スマホスナップ風（親しみやすさのある自然体な写真の質感）", en: "casual smartphone snapshot style, natural and candid music lesson photography style" },
+            { ja: "広角（スタジオ全体の広がりが伝わる奥行きのある質感）", en: "wide-angle lens shot, showcasing studio depth and spacious singing room atmosphere" }
+        ]
+    },
     L: {
         name: "人数",
         items: [
